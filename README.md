@@ -1,2 +1,2 @@
 # Caimbria
-Caimbria is a game.
+Caimbria is a game. A fun game.
