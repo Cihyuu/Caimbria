@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour {
     public bool didOppAfterDash = false;
 
     [Space(10)]
+    public bool isFalling = false;
+
+
+    [Space(10)]
     public CharacterController charController;
     public Transform itemParent;
 
@@ -71,7 +75,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    private void Start () {
         thirdPersonCamera = Camera.main.GetComponent<ThirdPersonCamera>();
         charController = GetComponent<CharacterController>();
         gunshotSfx = GetComponents<AudioSource>()[0];
@@ -82,17 +86,17 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
         HandleMovement();
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire2"))
         {
             ToggleAim();
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetButtonUp("Fire2"))
         {
             ToggleAim();
         }
@@ -130,6 +134,8 @@ public class PlayerController : MonoBehaviour {
             Vector3 dir = thirdPersonCamera.transform.TransformDirection(new Vector3(inputDir.x, 0, inputDir.y));
             dir.y = 0;
             velocity = dir * currentSpeed + Vector3.up * velocityY;
+
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, 0f, transform.rotation.z));
         }
         else
         {
@@ -155,7 +161,6 @@ public class PlayerController : MonoBehaviour {
             //}
 
             velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
-            print(velocity);
             prevVelocity = velocity;
         }
 
@@ -163,12 +168,29 @@ public class PlayerController : MonoBehaviour {
 
         if (!charController.isGrounded)
         {
+            if (!isFalling)
+                StartCoroutine(Fall());
+        }
+        else
+        {
+            if (!isFalling)
+                isFalling = !isFalling;
+        }
+    }
+
+    private IEnumerator Fall()
+    {
+        while (!charController.isGrounded)
+        {
             groundRay = new Ray(transform.position, Vector3.down);
             if (Physics.Raycast(groundRay, out groundRaycastHit, snapDistance))
             {
                 charController.Move(groundRaycastHit.point - transform.position);
             }
+            yield return null;
         }
+
+        yield break;
     }
 
     void ToggleAim()

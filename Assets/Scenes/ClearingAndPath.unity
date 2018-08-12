@@ -1407,6 +1407,10 @@ Prefab:
       propertyPath: DashCooldown
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4811348722253488, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
   m_IsPrefabAsset: 0
