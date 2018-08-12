@@ -4,100 +4,95 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour {
 
-    [Header("Tweakable Variables")]
-    public float dashCooldownDuration = 5;
-    public float dashWindupDuration = 0.3f;
-    public float dashSpeed = 100f;
-    public float dashDuration = 0.5f;
-    public float dashEndWindow = 1;
+    [Header("Dash Variables")]
+    public float DashDuration = 1.0f; // Time (in seconds) it takes to complete the dash movement
+    public float DashCooldown = 1.0f; //Time (in seconds) it takes to cool down after dash movement
+    public float DashMaxSpeed = 1.0f; //Maximum speed of the dashing player where DashCurve's y = 1.
+    public float DashEndWindow = 1.0f; //Time after dashing player is in standstill.
 
-    float dashWindupTimer = 0;
-    float dashTimer = 0;
-    float dashCooldownTimer = 0;
-    bool isDashCoolingDown = false;
-    Coroutine dashCoroutine;
+    public bool IsDashing = false; // Is the player dashing?
+    public bool CanDash = true; // Is the player able to dash? (Not on a cooldown)
 
-    PlayerController player;
 
-    // Use this for initialization
-    void Start () {
+    public AnimationCurve DashCurve = new AnimationCurve(); // DashCurve is the speed (y axis) over time (x axis) of the player while dashing. The bouds of the x axis are [0, 1] and for y are (0, 1]. y = 1 means dash is at maximum speed.
+
+    public PlayerController player;
+
+    private void Start()
+    {
         player = GetComponent<PlayerController>();
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+    private void Update()
+    {
+        if (Input.GetButtonDown("Dash"))
         {
-            // can't dash if not moving
-            if (!isDashCoolingDown && player.inputDir != Vector2.zero)
-                StartCoroutine(DashWindup());
+            if (CanDash && player.inputDir != Vector2.zero)
+            {
+                StartCoroutine(PerformDash());
+            }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (dashTimer > 0)
+            if (IsDashing)
             {
-                StopCoroutine(dashCoroutine);
+                StopCoroutine(PerformDash());
+                StartCoroutine(PerformCooldown());
                 player.isDashing = false;
-                StartCoroutine("DashCooldown");
-                dashTimer = 0;
+                IsDashing = false;
             }
         }
     }
 
-    IEnumerator DashWindup()
+    public IEnumerator PerformDash()
     {
-        player.isDashing = true;
-        while (dashWindupTimer <= dashWindupDuration)
-        {
-            transform.Rotate(Vector3.right, -20 * Time.deltaTime);
-            dashWindupTimer += Time.deltaTime;
-            yield return null;
-        }
-        dashWindupTimer = 0;
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        dashCoroutine = StartCoroutine(DoDash());
-        yield break;
-    }
 
-    IEnumerator DoDash()
-    {
-        while (dashTimer <= dashDuration)
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+
+        player.isDashing = true;
+        IsDashing = true;
+        CanDash = false;
+
+        var elapsedTime = 0f;
+
+        while (elapsedTime <= DashDuration)
         {
-            Vector3 worldCoordDir = new Vector3(player.inputDir.x, 0, player.inputDir.y);
-            Vector3 dir = player.thirdPersonCamera.transform.TransformDirection(worldCoordDir);
+
+            elapsedTime += Time.deltaTime;
+
+            var currentSpeed = DashCurve.Evaluate(elapsedTime / DashDuration);
+
+            var worldCoordDir = new Vector3(player.inputDir.x, 0, player.inputDir.y);
+
+            var dir = player.thirdPersonCamera.transform.TransformDirection(worldCoordDir);
             dir.y = 0;
-            player.charController.Move(dir * dashSpeed * Time.deltaTime);
-            dashTimer += Time.deltaTime;
+
+            player.charController.Move(dir * currentSpeed * DashMaxSpeed * Time.deltaTime);
+
             yield return null;
         }
+
+        IsDashing = false;
         player.isDashing = false;
         player.hasDashJustEnded = true;
-        Invoke("EndDash", dashEndWindow);
-        StartCoroutine("DashCooldown");
-        dashTimer = 0;
-        yield break;
+        
+        StartCoroutine(PerformCooldown());
     }
 
-    void EndDash()
+    public IEnumerator EndDash()
     {
+        yield return new WaitForSeconds(DashEndWindow);
         player.hasDashJustEnded = false;
     }
 
-    IEnumerator DashCooldown()
+    public IEnumerator PerformCooldown()
     {
-        Logger.Log("Dash on cooldown");
-        isDashCoolingDown = true;
-        while (dashCooldownTimer < dashCooldownDuration)
-        {
-            dashCooldownTimer += Time.deltaTime;
-            yield return null;
-        }
-        dashCooldownTimer = 0;
-        isDashCoolingDown = false;
-        Logger.Log("Dash ready");
-        yield break;
-    }
+        if (IsDashing)
+            yield break;
 
+        yield return new WaitForSeconds(DashCooldown);
+
+        CanDash = true;
+    }
 }
