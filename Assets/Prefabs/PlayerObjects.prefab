@@ -3268,6 +3268,7 @@ MonoBehaviour:
   hasDashJustEnded: 0
   isOppShot: 0
   didOppAfterDash: 0
+  isFalling: 0
   charController: {fileID: 0}
   itemParent: {fileID: 4828634574510948}
   inputDir: {x: 0, y: 0}
@@ -3303,11 +3304,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2db82b2ad767743883be2d7c2e7a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashCooldownDuration: 5
-  dashWindupDuration: 0.3
-  dashSpeed: 270
-  dashDuration: 0.2
-  dashEndWindow: 1
+  DashDuration: 2
+  DashCooldown: 3
+  DashMaxSpeed: 100
+  DashEndWindow: 1
+  IsDashing: 0
+  CanDash: 1
+  DashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.010513306
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24497768
+      value: 0.006369747
+      inSlope: -0.0796979
+      outSlope: -0.0796979
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5120872
+      value: 0.4865078
+      inSlope: -0.06982113
+      outSlope: -0.06982113
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.671895
+      value: 0.7547448
+      inSlope: 1.506656
+      outSlope: 1.506656
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9958333
+      value: 1.0108744
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.010513306
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  player: {fileID: 0}
 --- !u!114 &114201371365121556
 MonoBehaviour:
   m_ObjectHideFlags: 1

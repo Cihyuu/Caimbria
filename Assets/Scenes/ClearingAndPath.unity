@@ -1300,11 +1300,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4835193348048922, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
       propertyPath: m_LocalPosition.x
       value: -9.100002
@@ -1336,80 +1331,6 @@ Prefab:
     - target: {fileID: 4835193348048922, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[0].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[0].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[0].inWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[0].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[1].inWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCurve.m_Curve.Array.data[1].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 224092018574968500, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: CanDash
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: IsDashing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashMaxSpeed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114200447007915768, guid: 7e2acae9c199b09479c53cd9c33d6a12,
-        type: 2}
-      propertyPath: DashCooldown
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4811348722253488, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 7.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e2acae9c199b09479c53cd9c33d6a12, type: 2}
